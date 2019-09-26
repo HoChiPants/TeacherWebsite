@@ -1,0 +1,49 @@
+<!--
+  Author:    Austin Stephens
+  Date:      September/10/2019
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Austin Stephens - This work may not be copied for use in Academic Coursework.
+
+  I, Austin Stephens, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+    This is file to view the details of the Learning Outcomes in the database
+-->
+@model Assignment3.Models.LearningOutcome
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>LearningOutcome</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CourseInstanceId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseInstanceId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LearningId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

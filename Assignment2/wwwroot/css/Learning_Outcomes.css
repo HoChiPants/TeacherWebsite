@@ -1,0 +1,146 @@
+﻿/*
+    Author: Austin Stephens
+    uID: u0879824
+    Descritpion: This is the .css page to style overview.html and course.html. This was designed from scratch
+    but used some code from the following;
+        https://www.w3schools.com/howto/howto_js_collapsible.asp
+        https://stackoverflow.com/questions/7190898/progress-bar-with-html-and-css
+        scrimba.com
+        https://www.w3schools.com/html/html_tables.asp
+*/
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/*  Bootstrap wanted me to make this for the navbar that permenantly stays at the top*/
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+/* This is here to set up the html page*/
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+/* Give the article of the webpage the right dimentions*/
+article {
+    padding: 10px;
+    padding-bottom: 60px; /* Height of the footer */
+    margin: 0;
+}
+
+/* Give the body  (main information) of the webpage the right information*/
+body {
+    margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    position: relative;
+}
+/*Give the header elements of course and overview the right information in the jumbotron bootstrap element*/
+header {
+    background-color: white;
+    color: white;
+    text-align: center;
+    width: 100%;
+    display: grid;
+    height: 110px;
+}
+
+/* This is for the profile picture and the u of u logo */
+.avatar {
+    vertical-align: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+
+/* 
+    from https://www.w3schools.com/howto/howto_js_collapsible.asp
+*/
+/* the design of the collapsable objects*/
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+    .collapsible:hover {
+        background-color: #ccc;
+    }
+/*Keep the footer elements working at the right consistancy with the rest of the webpage. Used on all websites*/
+footer {
+    bottom: 0;
+    width: 100%;
+    height: 120px; /* Height of the footer */
+    background-color: #343a40;
+     padding: 40px 0 60px 0;
+    text-align: center;
+}
+/* A change that i made to all h2 blocks to make sure that they stayed in the place that i wanted them all to be even
+    after the bootstrap*/
+h2 {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+.btn-lg {
+    margin-bottom: 10px;
+}
+/*The rest of these are here because sometimes bootstrap goes crazy and the format looks bad. */
+#NoMargin {
+    margin: 0;
+}
+
+#jumbotronStyle {
+    margin-bottom: 0;
+    background-color: #b00707
+}
+
+#imageSizer {
+    width: 100%;
+}
+/*All of these are here because of the progress bars. */
+#ten {
+    width: 10%;
+}
+
+#threefive {
+    width: 35%;
+}
+
+#fivefive {
+    width: 55%;
+}
+
+#sixfive {
+    width: 65%;
+}
+
+#eightfive {
+    width: 85%;
+}
+
+#ninefive {
+    width: 95%;
+}
+
+#hundred {
+    width: 100%;
+}

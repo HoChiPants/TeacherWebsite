@@ -1,0 +1,61 @@
+<!--
+  Author:    Austin Stephens
+  Date:      September/10/2019
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540 and Austin Stephens - This work may not be copied for use in Academic Coursework.
+
+  I, Austin Stephens, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+    This is file to control the files of the database
+-->
+@model IEnumerable<Assignment3.Models.LearningOutcome>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseInstanceId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseInstanceId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LearningId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LearningId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LearningId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

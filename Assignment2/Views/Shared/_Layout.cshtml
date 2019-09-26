@@ -1,0 +1,123 @@
+﻿<!--
+    Author:    [Austin Stephens]
+    Partner:   [None]
+    Date:      [08/26/2019]
+    Course:    CS 4540, University of Utah, School of Computing
+    Copyright: CS 4540 and [Austin Stephens] - This work may not be copied for use in Academic Coursework.
+
+
+    I, Austin Stephens, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+    The document that keeps the navbar, and footer and other elements for the other websites
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Assignment2</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/Learning_Outcomes.css" />
+</head>
+<body>
+    <header>
+        <!-- Some examples taken from https://getbootstrap.com/docs/4.0/components/navbar/ this is the navbar at the top
+        of all the webpages
+        -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- Navbar content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <!--Websites part of the navbar-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Websites
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="dropdown-item" asp-action="Index">Department Chair Page</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/DummyFiles/ReadMe.pdf" target="_blank">ReadMe</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">User: Paul</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Role: Department Chair</a>
+                    </li>
+                    <li class="nav-item nav-link">
+                        <partial name="_LoginPartial" />
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-2">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <!--Some bootstrap ideas taken from https://mdbootstrap.com/docs/jquery/navigation/footer/ This has the footer information-->
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color-dark pt-4">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Call to action -->
+            <ul class="list-unstyled list-inline text-center py-2">
+                <li class="list-inline-item">
+                    <h3><a asp-action="Index" asp-area="" asp-controller="Home"> Switch to Department Chair Page</a></h3>
+                </li>
+            </ul>
+            <!-- Call to action -->
+
+        </div>
+    </footer>
+
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"></script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

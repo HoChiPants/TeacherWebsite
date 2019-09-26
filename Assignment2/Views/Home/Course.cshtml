@@ -1,0 +1,87 @@
+﻿@model Assignment3.Models.Course
+
+@{
+    ViewData["Title"] = "Course Page";
+}
+
+<!--
+    Author:    [Austin Stephens]
+    Partner:   [None]
+    Date:      [08/26/2019]
+    Course:    CS 4540, University of Utah, School of Computing
+    Copyright: CS 4540 and [Austin Stephens] - This work may not be copied for use in Academic Coursework.
+
+
+    I, Austin Stephens, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+    This is the professor view of the website. Use Razor to dynamically change the information for whats in the 
+    database
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Course</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Austin Stephens" />
+    <meta name="description" content="A website for professors" />
+    <meta name="keywords" content="University of Utah CS 4540" />
+    <link href="Learning_Outcomes.css" rel="stylesheet">
+</head>
+<!--
+    This is a bootsrap called jumbotron. This is used in all the .html files for the header red box. https://getbootstrap.com/docs/4.0/components/jumbotron/
+-->
+<body>
+    <div class="jumbotron text-center" id="jumbotronStyle">
+        <ul class="list-inline">
+            <li class="list-inline-item"><h2>Welcome to @Model.CourseNumber</h2></li>
+        </ul>
+    </div>
+    <!--Two buttons used for the add and remove learning outcomes. Used from bootstrap. https://getbootstrap.com/docs/4.0/components/buttons/-->
+    <article>
+        <div>
+            <h2>Professor </h2>
+            <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Learning Outcome</a>
+            <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Delete Learning Outcome</a>
+        </div>
+
+        <!--This is a table to contain all the learning outcomes of the professor-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Learning Outcomes</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Example</th>
+                    <th scope="col">Assignment/Exam</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <!--to get all the information of the database and put it in the right column of the table-->
+            @foreach (var l in Model.LearningOutcomes)
+        {
+        <tbody>
+            <tr>
+                <td scope="row">Learning Outcome:@l.LearningId</td>
+                <td scope="row">@l.Description</td>
+                <td scope="row">
+                    <a href="~/DummyFiles/student_work.pdf" target="_blank" type="button" class="btn btn-outline-success">Great Example</a>
+                    <a href="~/DummyFiles/student_work.pdf" target="_blank" type="button" class="btn btn-outline-primary">Good Example</a>
+                    <a href="~/DummyFiles/student_work.pdf" target="_blank" type="button" class="btn btn-outline-seconday">Bad Example</a>
+                </td>
+                <td scope="row" colspan="3">
+                    <a href="~/DummyFiles/assignment_definition.pdf" class="button btn btn-light" target="_blank" >View Assignment</a>
+                    <a href="~/DummyFiles/exam_definition.pdf" class="button btn btn-light" target="_blank">View Exam</a>
+                </td>
+                <td scope="row" colspan="4">
+                    <a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit Learning Outcome</a>
+                </td>
+            </tr>
+        </tbody>
+        }
+        </table>
+    </article>
+    </body>
+</html>
+
