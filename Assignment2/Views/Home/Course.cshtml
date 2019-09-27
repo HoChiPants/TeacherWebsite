@@ -36,13 +36,15 @@
 <body>
     <div class="jumbotron text-center" id="jumbotronStyle">
         <ul class="list-inline">
-            <li class="list-inline-item"><h2>Welcome to @Model.CourseNumber</h2></li>
+            <li class="list-inline-item"><h2>@Model.Name</h2></li>
+            <li class="list-inline-item"><h3>@Model.Department - @Model.CourseId</h3></li>
+            <li class="list-inline-item"><h4>@Model.Description</h4></li>
         </ul>
     </div>
     <!--Two buttons used for the add and remove learning outcomes. Used from bootstrap. https://getbootstrap.com/docs/4.0/components/buttons/-->
     <article>
         <div>
-            <h2>Professor </h2>
+            <h2>Learning Outcome </h2>
             <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Learning Outcome</a>
             <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Delete Learning Outcome</a>
         </div>
@@ -63,7 +65,7 @@
         {
         <tbody>
             <tr>
-                <td scope="row">Learning Outcome:@l.LearningId</td>
+                <td scope="row">Learning Outcome:@l.Name</td>
                 <td scope="row">@l.Description</td>
                 <td scope="row">
                     <a href="~/DummyFiles/student_work.pdf" target="_blank" type="button" class="btn btn-outline-success">Great Example</a>

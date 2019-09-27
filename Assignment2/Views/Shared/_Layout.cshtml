@@ -19,6 +19,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Assignment2</title>
+    @using Microsoft.AspNetCore.Identity
+    @inject UserManager<IdentityUser> _userManager
+    @inject SignInManager<IdentityUser> _signInManager
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -35,44 +38,40 @@
 <body>
     <header>
         <!-- Some examples taken from https://getbootstrap.com/docs/4.0/components/navbar/ this is the navbar at the top
-        of all the webpages
-        -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <!-- Navbar content -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <!--Websites part of the navbar-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Websites
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            <a class="dropdown-item" asp-action="Index">Department Chair Page</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="~/DummyFiles/ReadMe.pdf" target="_blank">ReadMe</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">User: Paul</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Role: Department Chair</a>
-                    </li>
-                    <li class="nav-item nav-link">
-                        <partial name="_LoginPartial" />
-                    </li>
-
-                </ul>
-                <form class="form-inline my-2 my-lg-2">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
+    of all the webpages
+    -->
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+                <!-- Navbar content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            <partial name="_LoginPartial" />
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        }
+        else
+        {
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <!-- Navbar content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                        </li>
+                        <li class="nav-item nav-link">
+                            <partial name="_LoginPartial" />
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        }
     </header>
 
     <div class="container">
@@ -84,19 +83,6 @@
     <!--Some bootstrap ideas taken from https://mdbootstrap.com/docs/jquery/navigation/footer/ This has the footer information-->
     <!-- Footer -->
     <footer class="page-footer font-small unique-color-dark pt-4">
-
-        <!-- Footer Elements -->
-        <div class="container">
-
-            <!-- Call to action -->
-            <ul class="list-unstyled list-inline text-center py-2">
-                <li class="list-inline-item">
-                    <h3><a asp-action="Index" asp-area="" asp-controller="Home"> Switch to Department Chair Page</a></h3>
-                </li>
-            </ul>
-            <!-- Call to action -->
-
-        </div>
     </footer>
 
 

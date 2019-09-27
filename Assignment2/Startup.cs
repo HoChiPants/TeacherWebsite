@@ -25,6 +25,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
+using Microsoft.AspNetCore.Authentication;
+using Assignment4.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Assignment2
 {
@@ -50,11 +54,12 @@ namespace Assignment2
             services.AddDbContext<LearningModel>(options =>
         options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //var connection = "Data Source=LearningOutcome.db";
-            //services.AddDbContext<LearningModel>
-            //    (options => options.UseSqlite(connection));
+            services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedEmail = true);
+            //services.AddTransient<IEmailSender,EmailSender> ();
+            //services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +79,7 @@ namespace Assignment2
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -23,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Assignment3.Data;
 using Assignment3.Models;
+using Assignment4.Models;
 
 namespace Assignment2
 {
@@ -38,7 +39,8 @@ namespace Assignment2
                 try
                 {
                     var context = services.GetRequiredService<LearningModel>();
-                    DbInitializer.Initialize(context);
+                    var userContext = services.GetRequiredService<UserRolesContext>();
+                    DbInitializer.Initialize(context, userContext);
                 }
                 catch (Exception ex)
                 {

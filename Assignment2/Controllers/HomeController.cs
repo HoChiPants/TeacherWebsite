@@ -24,23 +24,31 @@ using Microsoft.AspNetCore.Mvc;
 using Assignment2.Models;
 using Assignment3.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assignment2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly LearningModel _context;
+        private readonly RoleManager<IdentityRole> _rolecontext;
+        private readonly UserManager<IdentityUser> _usercontext;
 
-        public HomeController(LearningModel context)
+        public HomeController(LearningModel context, RoleManager<IdentityRole> rolecontext, UserManager<IdentityUser> usercontext)
         {
             _context = context;
+            _rolecontext = rolecontext;
+            _usercontext = usercontext;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Courses.ToListAsync());
+            var id = (await _usercontext.GetUserAsync(HttpContext.User))?.Id.ToString();
+            ViewData["name"] = id;
+            return View();
         }
-
+        [Authorize(Roles ="Instructor, Chair")]
         public async Task<IActionResult> Course(int? id)
         {
             if (id == null)
@@ -58,70 +66,77 @@ namespace Assignment2.Controllers
             return View(course);
         }
 
+        [Authorize(Roles = "Instuctor")]
+        public async Task<IActionResult> PersonalCourse(string id)
+        {
+            return View(await _context.Courses.ToListAsync());
+        }
+
+
+
+
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult>editCourse(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            Course course = await _context.Courses.Include(o => o.LearningOutcomes).FirstOrDefaultAsync(m => m.CourseId == id);
+            if (course == null)
+                return NotFound();
+            return View(course);
+ 
+        }
+
+
+        [Authorize(Roles = "Chair")]
+        public async Task<IActionResult> Department()
+        {
+            return View(await _context.Courses.ToListAsync());
+        }
+
+
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditRole(string id)
+        {
+            ViewData["roles"] = string.Join(",", _rolecontext.Roles.ToList());
+            ViewData["users"] = string.Join(",", _usercontext.Users.ToList());
+
+            Dictionary<string, List<string>> tempDic = new Dictionary<string, List<string>>();
+
+            foreach (var user in _usercontext.Users.ToList())
+            {
+                List<string> tempString = new List<string>();
+                    foreach (string w in await _usercontext.GetRolesAsync(user))
+                {
+                    tempString.Add(w);
+                }
+                tempDic.Add(user.Email, tempString);
+            }
+            ViewData["usersroles"] = tempDic;
+            return View();
+        }
+
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ChangeCourse(int? id)
+        {
+            return View(await _context.Courses.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(int? id)
+        {
+            return View(await _context.Courses.ToListAsync());
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-
-        //this is for the raw text file view. Takes in an it for the course id and creates a webpage from the string.
-        public async Task<IActionResult> RawCourse(int? id)
-        {
-            Course course = await _context.Courses.Include(o => o.LearningOutcomes).FirstOrDefaultAsync(m => m.CourseId == id);
-
-            string page = "";
-
-            page = @"<body>
-    <div class='jumbotron text-center' id='jumbotronStyle'>
-        <ul class='list-inline'>
-            <li class='list-inline-item'><h2>Welcome to " + course.CourseNumber + @"</h2></li>
-        </ul>
-    </div>
-    <article>
-        <div>
-            <h2>Professor</h2> <a href = '#' class='btn btn-primary btn-lg active' role='button' aria-pressed='true'>Add Learning Outcome</a>
-            <a href = '#' class='btn btn-secondary btn-lg active' role='button' aria-pressed='true'>Delete Learning Outcome</a>
-        </div>
-        <table class='table'>
-
-            <thead>
-                <tr>
-                    <th scope = 'col' > Learning Outcomes</th>
-                    <th scope = 'col' > Description </th>
-                    <th scope='col'>Example</th>
-                    <th scope = 'col' > Assignment / Exam </th>
-                    <th scope='col'> </th>
-                </tr>
-            </thead>";
-            foreach(var l in course.LearningOutcomes)
-        {
-                page +=
-        @"<tbody>
-            <tr>
-                <td scope = 'row'> Learning Outcome:" + l.LearningId + @"</td>
-                <td scope = 'row'>" + l.Description + @"</td>
-                <td scope='row'>
-                    <a href = '../../DummyFiles/student_work.pdf' target= '_blank' type= 'button' class='btn btn-outline-success'>Great Example</a>
-                    <a href = '../../DummyFiles/student_work.pdf' target= '_blank' type= 'button' class='btn btn-outline-primary'>Good Example</a>
-                    <a href = '../../DummyFiles/student_work.pdf' target= '_blank' type= 'button' class='btn btn-outline-secondary'>Bad Example</a>
-                </td>
-                <td scope = 'row' colspan= '3'>
-                    <a href= '../../DummyFiles/assignment_definition.pdf' class='button btn btn-light' target='_blank'>View Assignment</a>
-                    <a href= '../../DummyFiles/exam_definition.pdf' class='button btn btn-light' target='_blank'>View Exam</a>
-                </td>
-                <td scope='row' colspan='4'>
-                    <a href = '#' class='btn btn-info btn-md active' role='button' aria-pressed='true'>Edit Learning Outcome</a>
-                </td>
-            </tr>
-        </tbody>";
-        }
-            page += 
-        @"</table>
-    </article>
-    </body>";
-            ViewData["page"] = page;
-            return View();
         }
     }
 }

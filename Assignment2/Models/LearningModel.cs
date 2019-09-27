@@ -40,6 +40,7 @@ namespace Assignment3.Models
 		public int CourseNumber { get; set; }
 		public string Semester { get; set; }
 		public int Year { get; set; }
+        public string UserId { get; set; }
 
 		public List<LearningOutcome> LearningOutcomes { get; set; }
 	}

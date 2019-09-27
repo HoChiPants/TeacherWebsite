@@ -19,7 +19,9 @@ namespace Assignment4.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("UserRolesContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>()
+                services
+                .AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<UserRolesContext>();
             });
         }

@@ -1,0 +1,65 @@
+﻿@model Assignment3.Models.Course
+
+@{
+    ViewData["Title"] = "Learning Outcome Editor";
+}
+<!--
+    Author:    [Austin Stephens]
+    Partner:   [None]
+    Date:      [08/26/2019]
+    Course:    CS 4540, University of Utah, School of Computing
+    Copyright: CS 4540 and [Austin Stephens] - This work may not be copied for use in Academic Coursework.
+
+
+    I, Austin Stephens, certify that I wrote this code from scratch and did not copy it in part or whole from
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+
+  File Contents
+
+    A website used for the manager of a professor who needs to keep track of multiple professors work and updates.
+    Contains links, photos and references to other webpages.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Overview</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Austin Stephens" />
+    <meta name="description" content="A website for managers of professors" />
+    <meta name="keywords" content="University of Utah CS 4540" />
+    <link href="~/css/Learning_Outcomes.css" rel="stylesheet">
+</head>
+<body>
+    <!-- The top red box of the webpage https://getbootstrap.com/docs/4.0/components/jumbotron/-->
+    <div class="jumbotron text-center" id="jumbotronStyle">
+        <ul class="list-inline">
+            <li class="list-inline-item"><h2>@Model.Name</h2></li>
+            <li class="list-inline-item"><h3>@Model.Department - @Model.CourseId</h3></li>
+            <li class="list-inline-item"><h4>@Model.Description</h4></li>
+        </ul>
+    </div>
+    <div>
+        <button class="btn btn-secondary" asp-area="" asp-controller="LearningOutcome" asp-action="Create" asp-route-id="@Model.CourseId">Add New Learning Outcome</button>
+    </div>
+    @foreach (var item in Model.LearningOutcomes)
+    {
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>@item.Name</th>
+                </tr>
+                <!--Dynamically load the table with information-->
+                <tr>
+                    <th>@item.Description</th>
+                </tr>
+                
+            </tbody>
+            <div class="justify-content-md-center">
+                <a class="btn btn-secondary" role="button" asp-area="" asp-controller="LearningOutcome" asp-action="Edit" aps-route-id="@item.LearningId">Edit</a>
+                <a class="btn btn-secondary" role="button" asp-area="" asp-controller="LearningOutcome" asp-action="Delete" aps-route-id="@item.LearningId">Delete</a>
+                <a class="btn btn-secondary" role="button" asp-area="" asp-controller="LearningOutcome" asp-action="Details" aps-route-id="@item.LearningId">Details</a>
+            </div>
+        </table>
+    }
+    </body>
+</html>
