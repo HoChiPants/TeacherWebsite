@@ -16,12 +16,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="author" content="Austin Stephens" />
+    <meta name="description" content="Learning Outcome Tracker" />
     <meta charset="utf-8" />
+    <meta name="keywords" content="U of U, Professor, Learning Outcome" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Assignment2</title>
-    @using Microsoft.AspNetCore.Identity
-    @inject UserManager<IdentityUser> _userManager
-    @inject SignInManager<IdentityUser> _signInManager
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -38,40 +37,53 @@
 <body>
     <header>
         <!-- Some examples taken from https://getbootstrap.com/docs/4.0/components/navbar/ this is the navbar at the top
-    of all the webpages
-    -->
-        @if (_signInManager.IsSignedIn(User))
-        {
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                <!-- Navbar content -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
+        of all the webpages
+        -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    @if (User.IsInRole("Admin"))
+                    {
+
                         <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="EditRole">Change User Roles</a>
                         </li>
-                        <li class="nav-item nav-link">
-                            <partial name="_LoginPartial" />
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        }
-        else
-        {
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <!-- Navbar content -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Update">Change and View Courses</a>
                         </li>
-                        <li class="nav-item nav-link">
-                            <partial name="_LoginPartial" />
+                    }
+
+                    @if (User.IsInRole("Instructor"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="PersonalCourse" asp-route-id="@ViewData["name"]">View My Courses</a>
                         </li>
-                    </ul>
-                </div>
-            </nav>
-        }
+                    }
+
+                    @if (User.IsInRole("Chair"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Department">View Department Overview</a>
+                        </li>
+
+                    }
+                </ul>
+                <span class="navbar-text">
+                    <div class="text-white">
+                        <partial name="_LoginPartial" />
+                    </div>
+
+                </span>
+
+
+            </div>
+        </nav>
     </header>
 
     <div class="container">
@@ -80,10 +92,18 @@
             @RenderBody()
         </main>
     </div>
-    <!--Some bootstrap ideas taken from https://mdbootstrap.com/docs/jquery/navigation/footer/ This has the footer information-->
-    <!-- Footer -->
-    <footer class="page-footer font-small unique-color-dark pt-4">
+    <!--https://mdbootstrap.com/docs/jquery/navigation/footer/-->
+    <footer class="page-footer font-small text-center">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-lg-center py-3 .bg-dark">
+            Learning Outcome Tracker
+
+        </div>
+        <!-- Copyright -->
+
     </footer>
+    <!-- Footer -->
 
 
     <environment include="Development">

@@ -16,8 +16,7 @@
 
   File Contents
 
-    A website used for the manager of a professor who needs to keep track of multiple professors work and updates.
-    Contains links, photos and references to other webpages.
+    A website used to update the learning outcomes of teachers.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -50,21 +49,6 @@
                 <option value="start">Select Progress</option>
                 <option value="most to least">Most Complete - Least Complete</option>
                 <option value="least to most">Least Complete - Most Complete</option>
-                <option value="100">100% Complete</option>
-                <option value="75-99">75%-99% Complete</option>
-                <option value="50-74">50%-74% Complete</option>
-                <option value="25-49">25%-49% Complete</option>
-                <option value="0-24">0%-24% Complete</option>
-            </select>
-
-
-            <select class="custom-select col-sm-2">
-                <option value="start">Select Teacher</option>
-                <option value="alphabetical">Alphabetical</option>
-                <option value="name 1">Example Name 1</option>
-                <option value="name 2">Exampl Name 2</option>
-                <option value="name 3">Example Name 3</option>
-
             </select>
 
             <select class="custom-select col-sm-2">
@@ -73,38 +57,15 @@
                 <option value="low to high">Low Course Number - High Course Number</option>
                 <option value="high to low">High Course Number - Low Course Number</option>
                 <option value="">Upper Division Only</option>
-                <option value="">Course number 1000-2000</option>
-                <option value="">Course number 2000-3000</option>
-                <option value="">Course number 3000-4000</option>
-                <option value="">Course number 4000-5000</option>
-                <option value="">Course number 5000-6000</option>
-                <option value="">Course number 6000+</option>
             </select>
             <div class="btns">
-                <button type="button" class="hello btn btn-success btn-sm">Apply</button>
+                <button type="button" class="hello btn btn-success btn-md">Apply</button>
             </div>
 
             <div class="btns">
-                <button type="button" class="btn btn-secondary btn-sm">Clear</button>
+                <button type="button" class="btn btn-secondary btn-md">Clear</button>
             </div>
 
-        </div>
-        <div id="searchbar">
-            <!----Search Bar code from https://mdbootstrap.com/docs/jquery/forms/search/----->
-            <div class="row justify-content-center">
-                <div class="col-10">
-                    <div class="input-group md-form form-sm form-1 pl-0">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text purple lighten-3" id="basic-text1">
-                                <i class="fas fa-search text-white"
-                                   aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <input class="form-control my-0 py-1" type="text" placeholder="Search by course number, professor, etc." aria-label="Search">
-                    </div>
-                </div>
-
-            </div>
         </div>
 
         <!----------Get each of the classes in the database and fill up the information on the webpage---------->
@@ -166,7 +127,7 @@
             <p></p>
             <div class="row justify-content-end">
                 <div class="col-4">
-                    <a role="button" class="btn btn-success btn-lg " asp-area="" asp-controller="Home" asp-action="ChangeCourse" asp-route-id="@item.CourseId">Edit Learning Outcomes</a>
+                    <a role="button" class="btn btn-success btn-lg " asp-area="" asp-controller="Home" asp-action="EditCourse" asp-route-id="@item.CourseId">Edit Learning Outcomes</a>
                 </div>
             </div>
         }

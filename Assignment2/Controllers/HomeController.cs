@@ -48,31 +48,34 @@ namespace Assignment2.Controllers
             ViewData["name"] = id;
             return View();
         }
-        [Authorize(Roles ="Instructor, Chair")]
-        public async Task<IActionResult> Course(int? id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditRole(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            ViewData["roles"] = string.Join(",", _rolecontext.Roles.ToList());
+            ViewData["users"] = string.Join(",", _usercontext.Users.ToList());
 
-            Course course = await _context.Courses.Include(o => o.LearningOutcomes)
-                .FirstOrDefaultAsync(m => m.CourseId == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            Dictionary<string, List<string>> tempDic = new Dictionary<string, List<string>>();
 
-            return View(course);
+            foreach (var user in _usercontext.Users.ToList())
+            {
+                List<string> tempString = new List<string>();
+                foreach (string w in await _usercontext.GetRolesAsync(user))
+                {
+                    tempString.Add(w);
+                }
+                tempDic.Add(user.Email, tempString);
+            }
+            ViewData["usersroles"] = tempDic;
+            return View();
         }
 
-        [Authorize(Roles = "Instuctor")]
-        public async Task<IActionResult> PersonalCourse(string id)
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(int? id)
         {
             return View(await _context.Courses.ToListAsync());
         }
-
-
+        
 
 
         [Authorize(Roles ="Admin")]
@@ -95,41 +98,31 @@ namespace Assignment2.Controllers
         }
 
 
-
-
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditRole(string id)
+        [Authorize(Roles = "Instructor, Chair")]
+        public async Task<IActionResult> Course(int? id)
         {
-            ViewData["roles"] = string.Join(",", _rolecontext.Roles.ToList());
-            ViewData["users"] = string.Join(",", _usercontext.Users.ToList());
-
-            Dictionary<string, List<string>> tempDic = new Dictionary<string, List<string>>();
-
-            foreach (var user in _usercontext.Users.ToList())
+            if (id == null)
             {
-                List<string> tempString = new List<string>();
-                    foreach (string w in await _usercontext.GetRolesAsync(user))
-                {
-                    tempString.Add(w);
-                }
-                tempDic.Add(user.Email, tempString);
+                return NotFound();
             }
-            ViewData["usersroles"] = tempDic;
-            return View();
+
+            Course course = await _context.Courses.Include(o => o.LearningOutcomes)
+                .FirstOrDefaultAsync(m => m.CourseId == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
         }
 
-
-
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> ChangeCourse(int? id)
+        [Authorize(Roles = "Instructor")]
+        public async Task<IActionResult> PersonalCourse(string id)
         {
-            return View(await _context.Courses.ToListAsync());
-        }
+            if (id == null)
+                return NotFound();
 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(int? id)
-        {
-            return View(await _context.Courses.ToListAsync());
+            return View(await _context.Courses.Where(courses => courses.UserId == id).ToListAsync());
         }
 
 

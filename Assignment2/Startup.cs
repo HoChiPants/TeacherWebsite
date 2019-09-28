@@ -53,13 +53,16 @@ namespace Assignment2
 
             services.AddDbContext<LearningModel>(options =>
         options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            
+            services.AddTransient<IEmailSender,EmailSender> ();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddIdentityCore<IdentityUser>(options => options.SignIn.RequireConfirmedEmail = true);
-            //services.AddTransient<IEmailSender,EmailSender> ();
-            //services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "1017335551944958";
+                facebookOptions.AppSecret = "ffdcaf72e90b5f4ba1d4c8a570b016a2";
+            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

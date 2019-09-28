@@ -6,85 +6,43 @@ Copyright: CS 4540 and [Austin Stephens] - This work may not be copied for use i
 
 Comments to Evaluators:
 
-Repository Link - Currently not necessary
+Repository Link - https://github.com/HoChiPants/TeacherWebsite
 
-UI/UX choices - Some of the choices I made for this interface were the following
-Navbar 
-    Websites - Enables the user to switch between different pages this website has to
-    offer. Added the readme as if it was an about page.
-    Role/User - Remind the user of their permissions and to make sure they are signed
-    in as the right person.
-    Sign out - a necessary button for all things that you can sign in
-    This was all done using bootstrap as well as the big red box at the top with 
-    information in it. That is because
-    it flows more and is much easier to change.
-   
-Body
-    
-    Index.html - There is a big welcome at the top to welcome the department head.
-    Then each class is split into different sections, with the possibility to view each class
-    in both raw and razor views. Then in each section under the table it gives you the
-    information (department, Course Number, Description, Semester, and year). Then there
-    is a progress bar to show the overall learning outcome completion of the class
-    Then you have three options to Delete, Edit, or View the data of the class. This was 
-    added for the usage of the department head. They should be able to change that sort
-    of information. Then you finally have an option to add a new class. This is a big green
-    button so it cant be missed.
+Intersting things that came from the Authentication and Authorization were the following:
+	I really liked how websites were easily blocked by the .Net framework that we used. It was impressive
+	to see and im sure ill find more of it while searching the web now.
+	I liked how easy it was to link and check to see if a user was authorized or not.
+	I thought it was interesting to see how the email confirmation was used. I didnt know
+	how to make it so you returned back to the original page after sending a confrimation email
+	but it was still really impressive to see professor Germain do it. I also liked how you 
+	can use a third party emailing service to send someone an email from anywhere. It was really intersting
+	with the authorization that it was a lot like databasing, how you needed to query the database in order to 
+	see what users were allowed. Some of the changes of implementation i did was that i created two different
+	pages for viewing the course, one for the teacher and one for the chair. I did this so that the chair
+	had buttons to change the classes and things like that. I did this instead of making if statements to
+	help plan a little more for the future. I have noticed in this class there are times when we dont use
+	old code and other times when we build off. Its easier to implement an if statement in the moment than 
+	creating a whole webpage. I didnt really like how much pre existing database knowledge we were expected
+	to have. In previous classes we just scratched the surface, not even doing much of a database searching
+	but in this assignment we were expected to know much of it.
 
-    Course.html - At the start it welcomes you to the class you chose. Then it says your role
-    (professor) and the options to add or remove learning outcomes. Then inside the 
-    learning outcomes you have the head of the table (Learning Outcomes, Desciption, 
-    Example, Assignment/Exam). Then inside it gives you the order of the learning outcomes,
-    A small description of the assignment, the examples of students, and finally the 
-    assignment/exam.
+	Some of the things that I went above and beyond was creating a separate webpage for the updating of the courses
+	I also made the webpages look similar to Professor Germain but added some color to spice it up. I also added in
+	a facebook authenticator for the website as well. This allows the user to sign in for facebook for their login
+	making it very easy to remember your username and password. This was a great feature that I added. I followed these
+	on https://app.sendgrid.com/ , https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.0&tabs=windows ,
+	https://developers.facebook.com/apps/ , https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/facebook-logins?view=aspnetcore-3.0
 
-    Overall the tutorial found at 
-
-    https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.2
-
-    Was a great help and I used it as an example for most of the project. 
-
-
-Footer
-    The capability to easily switch back to the Department Chair Page
-
-Files Changed:
-    HomeController.cs
-    CourseController.cs
-    LearningOutcomeController.cs
-    Data(folder)
-    DbInitilizer.cs
-    Migrations(folder)
-    Models(folder)
-    LearningModel.cs
-    Course(folder)
-    Create.cshtml
-    Delete.cshtml
-    Details.cshtml
-    Edit.cshtml
-    Index.cshtml
-    Course.cshtml
-    Index.cshtml
-    RawCourse.cshtml
-    ReadMe.txt
-    LearningOutcome(folder)
-    Create.cshtml
-    Delete.cshtml
-    Details.cshtml
-    Edit.cshtml
-    Index.cshtml
-    _Layout.cshtml
-    appsettings.json
-    Program.cs
-    Startup.cs
-
+	Some improvements that I made from the previous assignment were making my code use more bootstrap to help it look better. 
+	As well as sliming down unwanted code, naming my variables better, Formatting my code better and overall the look of everything
+	has improved.
 
 Consulted Peers:
     Coleman Dunn
     Evan Childs
     Ethan England
     Jonny Rallison
-    The Whole Class (Aug 26)
+    The Whole Class (Multiple times in lecture)
     
 
 References:
@@ -102,3 +60,4 @@ References:
     https://mdbootstrap.com/docs/jquery/navigation/footer/
     https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.2
     https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/da1?view=aspnetcore-2.2
+	as well as some previously documented in the readme
