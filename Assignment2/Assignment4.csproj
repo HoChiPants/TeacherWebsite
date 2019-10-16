@@ -34,4 +34,7 @@
   <ItemGroup>
     <Compile Remove="Data\SchoolContext.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.pdf" />
+  </ItemGroup>
 </Project>
